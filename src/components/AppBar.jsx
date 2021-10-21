@@ -16,8 +16,10 @@ const styles = StyleSheet.create({
 const AppBar = () => {
   return (
     <View style={styles.container}>
-      <AppBarTab header="Repositories" to="/" />
-      <AppBarTab header="Sign in" to="/signin" />
+      <ScrollView horizontal>
+        <AppBarTab header="Repositories" to="/" />
+        <AppBarTab header="Sign in" to="/signin" />
+      </ScrollView>
     </View>
   );
 };

@@ -9,7 +9,7 @@ const AppBarTab = ({ header, to }) => {
     <Pressable>
       <Link to={to}>
         <Text
-          style={{ paddingLeft: 10 }}
+          style={{ paddingLeft: 15 }}
           fontSize="subheading"
           color="white"
           fontWeight="bold"
