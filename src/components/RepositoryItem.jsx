@@ -27,8 +27,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   languageItem: {
-    marginRight: 'auto',
+    flexDirection: 'row',
+  },
+  languageText: {
+    flexGrow: 0,
     borderRadius: 5,
+    color: 'white',
     backgroundColor: theme.colors.primary,
     padding: 3,
   },
@@ -76,7 +80,7 @@ const StatisticsItem = ({ text, value }) => {
 const LanguageItem = ({ language }) => {
   return (
     <View style={styles.languageItem}>
-      <Text color="white">{language}</Text>
+      <Text style={styles.languageText}>{language}</Text>
     </View>
   );
 };
