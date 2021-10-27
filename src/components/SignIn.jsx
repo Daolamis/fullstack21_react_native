@@ -40,6 +40,46 @@ const initialValues = {
   password: '',
 };
 
+export const SignInForm = ({ onSubmit }) => {
+  return (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
+      {({ handleSubmit }) => (
+        <View style={styles.container}>
+          <FormikTextInput
+            style={styles.input}
+            name="username"
+            placeholder="Username"
+            testID="usernameField"
+          />
+          <FormikTextInput
+            secureTextEntry
+            style={styles.input}
+            name="password"
+            placeholder="Password"
+            testID="passwordField"
+          />
+          <Pressable
+            onPress={handleSubmit}
+            style={styles.button}
+            testID="submitButton"
+          >
+            <Text
+              style={{ color: 'white', textAlign: 'center' }}
+              fontWeight="bold"
+            >
+              Sign in
+            </Text>
+          </Pressable>
+        </View>
+      )}
+    </Formik>
+  );
+};
+
 const SignIn = () => {
   const [signIn] = useSignIn();
   let history = useHistory();
@@ -55,38 +95,7 @@ const SignIn = () => {
     }
   };
 
-  return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={onSubmit}
-      validationSchema={validationSchema}
-    >
-      {({ handleSubmit }) => <SigInForm onSubmit={handleSubmit} />}
-    </Formik>
-  );
-};
-
-const SigInForm = ({ onSubmit }) => {
-  return (
-    <View style={styles.container}>
-      <FormikTextInput
-        style={styles.input}
-        name="username"
-        placeholder="Username"
-      />
-      <FormikTextInput
-        secureTextEntry
-        style={styles.input}
-        name="password"
-        placeholder="Password"
-      />
-      <Pressable onPress={onSubmit} style={styles.button}>
-        <Text style={{ color: 'white', textAlign: 'center' }} fontWeight="bold">
-          Sign in
-        </Text>
-      </Pressable>
-    </View>
-  );
+  return <SignInForm onSubmit={onSubmit} />;
 };
 
 export default SignIn;

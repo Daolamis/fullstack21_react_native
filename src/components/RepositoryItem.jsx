@@ -40,16 +40,16 @@ const styles = StyleSheet.create({
 
 const RepositoryItem = ({ item }) => {
   return (
-    <View style={styles.listItem}>
+    <View testID="repositoryItem" style={styles.listItem}>
       <View style={styles.infoAndImage}>
         <Image source={{ uri: item.ownerAvatarUrl }} style={styles.image} />
         <View style={{ flex: 1 }}>
           <View style={styles.infoItem}>
-            <Text fontWeight="bold" fontSize="subheading">
+            <Text testID="fullname" fontWeight="bold" fontSize="subheading">
               {item.fullName}
             </Text>
           </View>
-          <View style={styles.infoItem}>
+          <View testID="description" style={styles.infoItem}>
             <Text color="textSecondary">{item.description}</Text>
           </View>
           <LanguageItem language={item.language} />
@@ -57,21 +57,36 @@ const RepositoryItem = ({ item }) => {
       </View>
       <View style={styles.statistics}>
         <StatisticsItem
+          testID="stars"
           value={formatNumber(item.stargazersCount)}
           text="Stars"
         />
-        <StatisticsItem value={formatNumber(item.forksCount)} text="Forks" />
-        <StatisticsItem value={item.reviewCount} text="Reviews" />
-        <StatisticsItem value={item.ratingAverage} text="Ratings" />
+        <StatisticsItem
+          testID="forks"
+          value={formatNumber(item.forksCount)}
+          text="Forks"
+        />
+        <StatisticsItem
+          testID="reviews"
+          value={item.reviewCount}
+          text="Reviews"
+        />
+        <StatisticsItem
+          testID="ratings"
+          value={item.ratingAverage}
+          text="Ratings"
+        />
       </View>
     </View>
   );
 };
 
-const StatisticsItem = ({ text, value }) => {
+const StatisticsItem = ({ testID, text, value }) => {
   return (
     <View>
-      <Text fontWeight="bold">{value}</Text>
+      <Text testID={testID} fontWeight="bold">
+        {value}
+      </Text>
       <Text color="textSecondary">{text}</Text>
     </View>
   );
@@ -80,7 +95,9 @@ const StatisticsItem = ({ text, value }) => {
 const LanguageItem = ({ language }) => {
   return (
     <View style={styles.languageItem}>
-      <Text style={styles.languageText}>{language}</Text>
+      <Text testID="language" style={styles.languageText}>
+        {language}
+      </Text>
     </View>
   );
 };
