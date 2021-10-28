@@ -33,7 +33,6 @@ export const RepositoryContainer = ({ repositories }) => {
 const PressableRepositoryItem = ({ item, ...props }) => {
   const history = useHistory();
   const onPress = () => {
-    console.log(`pressed ${item.id}`);
     history.push(`/repository/${item.id}`);
   };
 

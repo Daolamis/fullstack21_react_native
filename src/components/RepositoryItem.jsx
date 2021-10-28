@@ -91,7 +91,6 @@ const RepositoryItem = ({ item, githubButton }) => {
 
 const GitHubButton = ({ url }) => {
   const onPress = () => {
-    console.log(`open url ${url}`);
     Linking.openURL(url);
   };
 
