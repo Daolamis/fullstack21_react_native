@@ -53,7 +53,10 @@ const AppBar = () => {
             <SignOutTab />
           </>
         ) : (
-          <AppBarTab header="Sign in" to="/signin" />
+          <>
+            <AppBarTab header="Sign in" to="/signin" />
+            <AppBarTab header="Sign up" to="/signup" />
+          </>
         )}
       </ScrollView>
     </View>
