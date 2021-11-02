@@ -32,7 +32,7 @@ export class RepositoryContainer extends React.Component {
   };
 
   render() {
-    const { repositories } = this.props;
+    const { repositories, onEndReach } = this.props;
 
     const repositoryList = repositories
       ? repositories.edges.map((edge) => edge.node)
@@ -45,6 +45,8 @@ export class RepositoryContainer extends React.Component {
         renderItem={(props) => <PressableRepositoryItem {...props} />}
         ListHeaderComponent={this.renderHeader}
         keyExtractor={(item) => item.id}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
       />
     );
   }
@@ -55,12 +57,20 @@ const RepositoryList = () => {
   const [orderDirection, setOrderDirection] = useState('DESC');
   const [filter, setFilter] = useState('');
   const [dFilter] = useDebounce(filter, 500);
-  const { repositories } = useRepositories(orderBy, orderDirection, dFilter);
+  const { repositories, fetchMore } = useRepositories(
+    orderBy,
+    orderDirection,
+    dFilter
+  );
 
   const changeRepositoryOrder = (value) => {
     const [order, direction] = value.split('/');
     setOrderBy(order);
     setOrderDirection(direction);
+  };
+
+  const onEndReach = () => {
+    fetchMore();
   };
 
   return (
@@ -70,6 +80,7 @@ const RepositoryList = () => {
       filter={filter}
       changeRepositoryOrder={changeRepositoryOrder}
       selectedOrder={`${orderBy}/${orderDirection}`}
+      onEndReach={onEndReach}
     />
   );
 };
