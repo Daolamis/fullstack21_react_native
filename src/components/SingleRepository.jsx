@@ -60,23 +60,40 @@ const ReviewItem = ({ review }) => {
   );
 };
 
-const SingleRepository = () => {
-  let { repoId } = useParams();
-  const { repository, loading } = useRepository(repoId);
-  if (loading) {
-    return <Text>Loading..</Text>;
+class SingleRepositoryContainer extends React.Component {
+  renderHeader() {
+    return <RepositoryItem item={this.props.repository} githubButton />;
   }
-  const reviews = repository.reviews.edges.map((r) => r.node);
+  render() {
+    const { repository, onEndReach } = this.props;
+    const reviews = repository
+      ? repository.reviews.edges.map((r) => r.node)
+      : [];
+    return (
+      <FlatList
+        data={reviews}
+        renderItem={({ item }) => <ReviewItem review={item} />}
+        keyExtractor={({ id }) => id}
+        ListHeaderComponent={() => this.renderHeader(repository)}
+        onEndReached={onEndReach}
+        onEndReachedThreshold={0.5}
+      />
+    );
+  }
+}
 
+const SingleRepository = () => {
+  const { repoId } = useParams();
+  const { repository, fetchMore } = useRepository(repoId);
+
+  const onEndReach = () => {
+    console.log('reviews end, fetch more..');
+    fetchMore();
+  };
   return (
-    <FlatList
-      data={reviews}
-      renderItem={({ item }) => <ReviewItem review={item} />}
-      keyExtractor={({ id }) => id}
-      ListHeaderComponent={() => (
-        <RepositoryItem item={repository} githubButton />
-      )}
-      // ...
+    <SingleRepositoryContainer
+      repository={repository}
+      onEndReach={onEndReach}
     />
   );
 };
