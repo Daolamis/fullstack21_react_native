@@ -1,7 +1,8 @@
 import React from 'react';
 import { Image, Linking, Pressable, StyleSheet, View } from 'react-native';
-import Text from './Text';
-import theme from '../theme';
+import Text from '../Text';
+import theme from '../../theme';
+import { useHistory } from 'react-router';
 
 const styles = StyleSheet.create({
   listItem: {
@@ -44,6 +45,19 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
+
+export const PressableRepositoryItem = ({ item, ...props }) => {
+  const history = useHistory();
+  const onPress = () => {
+    history.push(`/repository/${item.id}`);
+  };
+
+  return (
+    <Pressable onPress={onPress}>
+      <RepositoryItem item={item} {...props} />
+    </Pressable>
+  );
+};
 
 const RepositoryItem = ({ item, githubButton }) => {
   return (

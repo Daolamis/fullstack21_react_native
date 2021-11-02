@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, View } from 'react-native';
 import { useParams } from 'react-router';
 import useRepository from '../hooks/useRepository';
 import theme from '../theme';
-import RepositoryItem from './RepositoryItem';
+import RepositoryItem from './RepositoryList/RepositoryItem';
 import Text from './Text';
 
 const styles = StyleSheet.create({
