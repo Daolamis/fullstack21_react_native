@@ -49,6 +49,7 @@ export const AUTHRORIZED_USER = gql`
           node {
             id
             repository {
+              id
               fullName
             }
             text

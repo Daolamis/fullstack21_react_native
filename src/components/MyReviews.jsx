@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import useAuthorizedUser from '../hooks/useAuthorizedUser';
 import ReviewItem from './ReviewItem';
+import Text from './Text';
 
 const styles = StyleSheet.create({
   separator: {
@@ -23,6 +24,7 @@ const MyReviews = () => {
       ItemSeparatorComponent={ItemSeparator}
       renderItem={({ item }) => <ReviewItem review={item} myReviews />}
       keyExtractor={({ id }) => id}
+      ListEmptyComponent={() => <Text>No reviews</Text>}
     />
   );
 };
