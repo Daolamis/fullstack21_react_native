@@ -62,6 +62,9 @@ const ReviewItem = ({ review }) => {
 
 class SingleRepositoryContainer extends React.Component {
   renderHeader() {
+    if (!this.props.repository) {
+      return null;
+    }
     return <RepositoryItem item={this.props.repository} githubButton />;
   }
   render() {
@@ -87,7 +90,6 @@ const SingleRepository = () => {
   const { repository, fetchMore } = useRepository(repoId);
 
   const onEndReach = () => {
-    console.log('reviews end, fetch more..');
     fetchMore();
   };
   return (

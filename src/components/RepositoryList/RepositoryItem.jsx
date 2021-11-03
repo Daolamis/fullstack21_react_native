@@ -60,10 +60,6 @@ export const PressableRepositoryItem = ({ item, ...props }) => {
 };
 
 const RepositoryItem = ({ item, githubButton }) => {
-  if (!item) {
-    console.log('RepositoryItem was undefined, returned null');
-    return null;
-  }
   return (
     <View testID="repositoryItem" style={styles.listItem}>
       <View style={styles.infoAndImage}>
