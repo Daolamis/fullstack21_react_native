@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, Pressable } from 'react-native';
 import Constants from 'expo-constants';
-import theme from '../theme';
 import { Link } from 'react-router-native';
-import Text from './Text';
-import { useQuery } from '@apollo/client';
-import { AUTHRORIZED_USER } from '../graphql/queries';
 import { useSignOut } from '../hooks/useSignOut';
+import { useHistory } from 'react-router';
+import Text from './Text';
+import useAuthorizedUser from '../hooks/useAuthorizedUser';
+import theme from '../theme';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,9 +30,15 @@ const AppBarTab = ({ header, to }) => {
 };
 
 const SignOutTab = () => {
+  const history = useHistory();
   const signOut = useSignOut();
+
+  const handleSignout = () => {
+    signOut();
+    history.push('/');
+  };
   return (
-    <Pressable onPress={signOut}>
+    <Pressable onPress={handleSignout}>
       <Text style={styles.tab} fontSize="subheading" fontWeight="bold">
         Sign out
       </Text>
@@ -40,8 +46,7 @@ const SignOutTab = () => {
   );
 };
 const AppBar = () => {
-  const { data, loading } = useQuery(AUTHRORIZED_USER);
-  const authorizedUser = loading ? null : data.authorizedUser;
+  const { authorizedUser } = useAuthorizedUser();
 
   return (
     <View style={styles.container}>
@@ -50,6 +55,7 @@ const AppBar = () => {
         {authorizedUser ? (
           <>
             <AppBarTab header="Create a review" to="/review" />
+            <AppBarTab header="My reviews" to="/myreviews" />
             <SignOutTab />
           </>
         ) : (
